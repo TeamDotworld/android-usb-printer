@@ -1,0 +1,17 @@
+<p><span style="font-size:24px"><img alt="" src="https://dotworld.in/logo/logo.png" style="height:100px; width:200px" /></span></p>
+
+<p><span style="font-size:24px">Date : ${date}</span></p>
+
+<p><span style="font-size:24px">Payment Mode: ${mode}</span></p>
+
+<p><span style="font-size:28px">We have received your payment of ₹${amount} for account number ${customerId}.</span></p>
+
+<p><span style="font-size:28px">Your transaction number is ${transactionId}.</span></p>
+
+<p>#if( $advance > 0 )</p>
+
+<p><span style="font-size:28px">We have kept advance of ₹${advance} in your CCMC account.</span></p>
+
+<p>#end</p>
+
+<p><span style="font-size:24px">Kindly contact CCMC incase of any clarifications.</span></p>
