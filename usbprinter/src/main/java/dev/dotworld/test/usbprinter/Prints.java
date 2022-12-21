@@ -1,26 +1,17 @@
 package dev.dotworld.test.usbprinter;
 
-import static dev.dotworld.test.usbprinter.DateAndRandomNoKt.getDateAnDTime;
-import static dev.dotworld.test.usbprinter.DateAndRandomNoKt.getRandom;
+
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.lvrenyang.io.Pos;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 
 public class Prints {
