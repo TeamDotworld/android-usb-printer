@@ -1,0 +1,50 @@
+name: Publish package to GitHub Packages
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 14
+      - name: Change Gradle wrapper permission
+        run: chmod +x ./gradlew
+      - name: Add github.properties file
+        env:
+          GITHUB_USER: ${{ secrets.USER_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        run: |
+          touch github.properties
+          echo username="$GITHUB_USER" >> github.properties
+          echo token="$GITHUB_TOKEN" >> github.properties
+          cat github.properties
+      - name: Build AAR
+        run: bash ./gradlew :usbprinter:assemble
+      - name: Publish package
+        run: bash ./gradlew :usbprinter:publish
+        env:
+          GITHUB_USER: ${{ secrets.USER_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          release_name: v1.0.${{ github.run_number }}
+          draft: false
+          prerelease: false
+      - name: Upload Library AAR
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: usbprinter/build/outputs/aar/usbprinter-release.aar
+          asset_name: usbprinter.aar
+          asset_content_type: application/aar
